@@ -1,21 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.19; 
 
-library Utility {
-    function compare(
-        string memory a,
-        string memory b
-    ) public pure returns (bool) {
-        return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
-    }
-}
+import "./Utility.sol";
 
 struct Vehicle {
     address owner;
     string vehicleNo;
     uint totalSeats;
     uint availableSeats;
-    bool isFree;
     bool isActive;
 }
 
@@ -100,11 +92,12 @@ contract UserManagementContract {
     }
 
     function addVehicle(
-        address user,
         string calldata vehicleNo,
         uint totalSeats,
         uint availableSeats
-    ) external isSameUser(user, msg.sender) {
+    ) external {
+        address user = msg.sender;
+
         if (users[user].wallet == address(0)) {
             revert("User not found");
         }
@@ -114,7 +107,6 @@ contract UserManagementContract {
             vehicleNo,
             totalSeats,
             availableSeats,
-            true,
             true
         );
 
@@ -125,7 +117,7 @@ contract UserManagementContract {
         address user,
         string calldata vehicleNo,
         uint availableSeat
-    ) external isSameUser(user, msg.sender) {
+    ) external  {
         for (uint i = 0; i < vehicles[user].length; i++) {
             if (
                 vehicles[user][i].owner == user &&
@@ -140,34 +132,16 @@ contract UserManagementContract {
     }
 
     function toggleVehicleStatus(
-        address user,
         string calldata vehicleNo,
         bool isActive
-    ) external isSameUser(user, msg.sender) {
+    ) external {
+        address user = msg.sender;
         for (uint i = 0; i < vehicles[user].length; i++) {
             if (
                 vehicles[user][i].owner == user &&
                 Utility.compare(vehicles[user][i].vehicleNo, vehicleNo)
             ) {
                 vehicles[user][i].isActive = isActive;
-                return;
-            }
-        }
-
-        revert("Vehicle not found");
-    }
-
-    function toggleVehicleAvailability(
-        address user,
-        string calldata vehicleNo,
-        bool isFree
-    ) external isSameUser(user, msg.sender) {
-        for (uint i = 0; i < vehicles[user].length; i++) {
-            if (
-                vehicles[user][i].owner == user &&
-                Utility.compare(vehicles[user][i].vehicleNo, vehicleNo)
-            ) {
-                vehicles[user][i].isFree = isFree;
                 return;
             }
         }

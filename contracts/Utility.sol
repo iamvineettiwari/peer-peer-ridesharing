@@ -2,9 +2,9 @@
 pragma solidity ^0.8.19;
 
 library Utility {
-    uint256 constant private RATE = 15265978; // 1 ETH = 152659.78 INR 
+    uint256 constant private RATE = 15834487; // 1 ETH = 158344.87 INR 
 
-    function convertPaiseToWei(uint256 amountInPaise) public pure returns (uint256) {
+    function convertPaiseToWei(uint256 amountInPaise) private pure returns (uint256) {
         return ((amountInPaise / 1000 * 1 ether) / RATE);
     }
 

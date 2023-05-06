@@ -4,33 +4,34 @@ pragma solidity ^0.8.19;
 import "./UserManagementInterface.sol";
 import "./Utility.sol";
 
-struct RideInfo {
-    uint rideId;
-    address driver;
-    string startPoint;
-    string endPoint;
-    bool isStarted;
-    bool isCompleted;
-    uint256 baseChargeInPaise;
-    uint256 perKMChargeInPaise;
-    Vehicle vehicle;
-}
-
-struct RiderInfo {
-    address rider;
-    uint256 noOfPassengers;
-    uint256 totalDistanceInMeter;
-    uint256 fare;
-    bool isAccepted;
-    bool isCompleted;
-}
-
-struct RidePayload {
-    RideInfo rideDetails;
-    RiderInfo rideStatus;
-}
-
 contract RideManagerContract {
+    
+    struct RideInfo {
+        uint rideId;
+        address driver;
+        string startPoint;
+        string endPoint;
+        bool isStarted;
+        bool isCompleted;
+        uint256 baseChargeInPaise;
+        uint256 perKMChargeInPaise;
+        Vehicle vehicle;
+    }
+
+    struct RiderInfo {
+        address rider;
+        uint256 noOfPassengers;
+        uint256 totalDistanceInMeter;
+        uint256 fare;
+        bool isAccepted;
+        bool isCompleted;
+    }
+
+    struct RidePayload {
+        RideInfo rideDetails;
+        RiderInfo rideStatus;
+    }
+
 
     UserManagementInterface umc;
     address payable public owner;

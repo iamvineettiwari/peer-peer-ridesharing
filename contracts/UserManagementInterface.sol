@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.19; 
 
+
 struct User {
     string phone;
     bool isDriver;
@@ -15,6 +16,7 @@ struct Vehicle {
     uint availableSeats;
     bool isActive;
 }
+
 
 interface UserManagementInterface {
     function getUsers() external view returns (User[] memory);

@@ -3,22 +3,24 @@ pragma solidity ^0.8.19;
 
 import "./Utility.sol";
 
-struct Vehicle {
-    address owner;
-    string vehicleNo;
-    uint totalSeats;
-    uint availableSeats;
-    bool isActive;
-}
 
-struct User {
-    string phone;
-    bool isDriver;
-    bool isActive;
-    address wallet;
-}
+contract UserManagementContract { 
+    struct Vehicle {
+        address owner;
+        string vehicleNo;
+        uint totalSeats;
+        uint availableSeats;
+        bool isActive;
+    }
 
-contract UserManagementContract {
+    struct User {
+        string phone;
+        bool isDriver;
+        bool isActive;
+        address wallet;
+    }
+
+
     address payable owner;
 
     User[] userList;
